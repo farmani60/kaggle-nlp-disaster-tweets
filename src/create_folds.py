@@ -3,12 +3,15 @@ import os
 import pandas as pd
 from sklearn import linear_model, metrics, model_selection
 
+from preprocessing import preprocess_data
+
 
 def run(nb_folds=5):
     _data_abs_path = "/home/reza/Documents/kaggle/kaggle-nlp-disaster-tweets/input"
 
     df = pd.read_csv(os.path.join(_data_abs_path, "train.csv"))
-    df = df.drop(columns=["id", "keyword", "location"], axis=1)
+
+    df = preprocess_data(df)
 
     df["kfold"] = -1
 
