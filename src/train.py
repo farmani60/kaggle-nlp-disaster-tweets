@@ -4,12 +4,22 @@ from sklearn import linear_model, metrics, naive_bayes
 from sklearn.feature_extraction.text import CountVectorizer
 
 from create_folds import run
+from src.data_loader import load_data
+from src.preprocessing import preprocess_data
 
 
 def train():
     _nb_fold = 5
+    _data_abs_path = "/home/reza/Documents/kaggle/kaggle-nlp-disaster-tweets/input/train.csv"
 
-    df = run(_nb_fold)
+    # load data
+    df = load_data(_data_abs_path)
+
+    # peprocessing
+    df = preprocess_data(df)
+
+    # create fold
+    df = run(df, _nb_fold)
 
     for fold_ in range(_nb_fold):
         train_df = df[df.kfold != fold_].reset_index(drop=True)

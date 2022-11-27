@@ -33,6 +33,7 @@ def text_preprocessing(text):
 
 
 def preprocess_data(df):
+
     # drop redundant columns
     df.drop(columns=["id", "location"], inplace=True)
 
