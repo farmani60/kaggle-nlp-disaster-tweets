@@ -11,7 +11,7 @@ def load_vectors(fname):
     data = {}
     for line in fin:
         tokens = line.rstrip().split(' ')
-        data[tokens[0]] = map(float, tokens[1:])
+        data[tokens[0]] = list(map(float, tokens[1:]))
     return data
 
 
@@ -29,14 +29,14 @@ def sentence_to_vec(sentence, embedding_dict, stop_words, tokenizer):
         return np.zeros(300)
 
     embeddings = np.array(embeddings)
-    embedding_vector = embeddings.sum(axis=0)
-    return embedding_vector / np.sqrt((embedding_vector ** 2).sum())
+    embedding_vector = np.sum(embeddings, axis=0)
+    return embedding_vector / np.sqrt(np.sum((embedding_vector ** 2)))
 
 
 def vectorize(df):
     df = df.sample(frac=1).reset_index(drop=True)
     print("Loading embeddings...")
-    embeddings = load_vectors(fname="/home/reza/Documents/kaggle/kaggle-nlp-disaster-tweets/wiki-news-300d-1M.vec")
+    embeddings = load_vectors(fname="/home/reza/Documents/kaggle/embeddings/wiki-news-300d-1M.vec")
 
     vectors = []
     for text_ in df.text.values:
