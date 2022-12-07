@@ -3,10 +3,10 @@ from nltk.tokenize import word_tokenize
 from sklearn import metrics
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
-from create_folds import run
+from models import logistic_regression, naive_bayes
+from src.create_folds import run
 from src.data_loader import load_data
 from src.preprocessing import preprocess_data
-from models import logistic_regression, naive_bayes
 
 
 def train():
@@ -28,8 +28,8 @@ def train():
         # count_vec = CountVectorizer(tokenizer=word_tokenize, token_pattern=None)
         tfidf_vec = TfidfVectorizer(tokenizer=word_tokenize, token_pattern=None)
 
-        x_train = tfidf_vec.fit_transform(train_df.transformed_content)
-        x_test = tfidf_vec.transform(test_df.transformed_content)
+        x_train = tfidf_vec.fit_transform(train_df.text)
+        x_test = tfidf_vec.transform(test_df.text)
 
         model = logistic_regression(max_iter=500)
 

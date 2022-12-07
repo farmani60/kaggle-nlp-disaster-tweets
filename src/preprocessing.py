@@ -47,9 +47,9 @@ def preprocess_data(df):
     df["content"] = df["keyword"] + " " + df["text"]
 
     # Let's Apply This Transformation Function on Our Content Column
-    df['transformed_content'] = df['content'].apply(text_preprocessing)
+    df['text'] = df['content'].apply(text_preprocessing)
 
     # Drop title author and old content column
-    final_df = df.drop(['text', 'keyword', 'content'], axis=1)
+    final_df = df.drop(['keyword', 'content'], axis=1)
 
     return final_df
